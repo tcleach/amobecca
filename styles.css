@@ -1,0 +1,424 @@
+/* Design System & Variables */
+:root {
+    /* Primary brand color for text and lines */
+    --brand-dark: #618295;
+
+    /* Main Background Colors */
+    --bg-main: #FFFFFF;
+    --text-primary: var(--brand-dark);
+    --text-secondary: rgba(97, 130, 149, 0.8);
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-border: var(--brand-dark);
+    
+    /* 3 Highlight Colors */
+    --color-1-base: #C2D5E0;
+    --color-1-hover: #E8EFF4; /* Light blue very light shade for hover */
+    
+    --color-2-base: #F7C7A9;
+    --color-2-hover: #E1B192;
+    
+    --color-3-base: #EFC8BD;
+    --color-3-hover: #F9EBE7; /* Pink very light shade for hover */
+    
+    /* We reuse color 1 for cycle 4 */
+    --color-4-base: #C2D5E0;
+    --color-4-hover: #ABC3D0;
+    
+    /* Utility colors */
+    --shadow-color: rgba(97, 130, 149, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+}
+
+.visually-hidden {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Background decorative blob (optional gradient touch for premium feel) */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Extremely subtle ambient mix behind everything */
+    background: radial-gradient(circle at 15% 50%, rgba(224, 240, 255, 0.4), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 229, 217, 0.4), transparent 25%);
+    z-index: -1;
+}
+
+.survey-container {
+    width: 100%;
+    max-width: 650px;
+}
+
+.survey-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 0.6s ease-out forwards;
+}
+
+.survey-header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.survey-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Question Cards */
+.question-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.question-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+}
+
+.question-card:nth-child(1) { animation-delay: 0.1s; }
+.question-card:nth-child(2) { animation-delay: 0.2s; }
+.question-card:nth-child(3) { animation-delay: 0.3s; }
+
+.question-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: -0.75rem;
+    margin-bottom: 1rem;
+}
+
+/* 1. Multiple Choice Options */
+.options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-main);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 400;
+}
+
+.custom-radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.custom-radio-ui {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border: 2px solid var(--text-secondary);
+    border-radius: 50%;
+    margin-right: 1rem;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.custom-radio input[type="radio"]:checked + .custom-radio-ui {
+    border-color: var(--text-primary);
+}
+
+.custom-radio input[type="radio"]:checked + .custom-radio-ui::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--text-primary);
+    border-radius: 50%;
+}
+
+/* Multiple Choice Hover & Active States */
+.custom-radio:hover {
+    background-color: var(--color-1-hover);
+}
+.custom-radio input[type="radio"]:checked ~ * {
+    font-weight: 500;
+}
+.custom-radio:has(input[type="radio"]:checked) {
+    background-color: var(--color-1-base);
+}
+
+
+/* 2. Free Response Input */
+.free-response-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: var(--bg-main);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    resize: vertical;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.free-response-input:hover {
+    background-color: var(--color-3-hover);
+}
+.free-response-input:focus {
+    box-shadow: 0 0 0 3px rgba(239, 200, 189, 0.4);
+    border-color: var(--color-3-base);
+    background-color: transparent;
+}
+
+
+/* 3. Ranking List (Drag and Drop) */
+.ranking-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-main);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    cursor: grab;
+    transition: background-color 0.2s ease, transform 0.1s;
+}
+
+.ranking-item:active {
+    cursor: grabbing;
+}
+
+.ranking-item:hover {
+    background-color: var(--color-2-base);
+}
+
+.ranking-item.interacted {
+    border: 2px solid var(--color-2-base);
+}
+
+.drag-handle {
+    margin-right: 15px;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    line-height: 1;
+    user-select: none;
+}
+
+.ranking-text {
+    font-weight: 400;
+    pointer-events: none; /* helps drag handle */
+}
+
+/* SortableJS Classes */
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: var(--color-2-base) !important;
+}
+
+
+/* Form Submit */
+.submit-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    animation: fadeInUp 0.5s ease-out backwards;
+    animation-delay: 0.4s;
+}
+
+.submit-btn {
+    padding: 1rem 2.5rem;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    background-color: var(--color-4-base);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.submit-btn:hover {
+    background-color: var(--color-4-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: var(--bg-main);
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.modal.hidden .modal-content {
+    transform: translateY(20px);
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.color-4-text { color: var(--text-primary); } /* You can make this color 4 if desired */
+
+.modal-content p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Conditional display logic */
+.conditional-field {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.conditional-field.visible {
+    display: block;
+    animation: fadeIn 0.4s forwards;
+}
+
+/* Custom Color Selectors for Form */
+.color-options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+}
+.color-option {
+    width: 65px;
+    height: 65px;
+    border-radius: 16px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.color-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+input[type="radio"]:checked + .color-option {
+    border-color: currentColor;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px var(--bg-main), 0 0 0 4px currentColor;
+}
+/* The backgrounds used for voting are now handled via inline styles in HTML, 
+   but we keep the dynamic UI highlight backgrounds below: */
+.bg-color-1 { background-color: var(--color-1-base); }
+.bg-color-2 { background-color: var(--color-2-base); }
+.bg-color-3 { background-color: var(--color-3-base); }
+.bg-color-4 { background-color: var(--color-4-base); }
+
+/* Responsiveness */
+@media (max-width: 600px) {
+    .question-card {
+        padding: 1.5rem;
+    }
+    .submit-btn {
+        width: 100%;
+    }
+}
+
