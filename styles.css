@@ -200,6 +200,16 @@ body {
     background-color: transparent;
 }
 
+/* Override browser autofill styling */
+.free-response-input:-webkit-autofill,
+.free-response-input:-webkit-autofill:hover, 
+.free-response-input:-webkit-autofill:focus, 
+.free-response-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--bg-main) inset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    caret-color: var(--text-primary);
+}
+
 
 /* 3. Ranking List (Drag and Drop) */
 .ranking-list {

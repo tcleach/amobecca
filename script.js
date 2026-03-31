@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Geolocation logic
             const currentLocationBtn = document.getElementById('current-location-btn');
             const geocoder = new google.maps.Geocoder();
+            const pinSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`;
 
             currentLocationBtn.addEventListener('click', () => {
                 if (!navigator.geolocation) {
@@ -188,12 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                currentLocationBtn.textContent = '⏳';
+                currentLocationBtn.textContent = '...';
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
                         geocoder.geocode({ location: pos }, (results, status) => {
-                            currentLocationBtn.textContent = '📍';
+                            currentLocationBtn.innerHTML = pinSvg;
                             if (status === "OK" && results[0]) {
                                 let city = "", state = "";
                                 for (let component of results[0].address_components) {
@@ -210,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     },
                     () => {
-                        currentLocationBtn.textContent = '📍';
+                        currentLocationBtn.innerHTML = pinSvg;
                         alert("Location access denied. Please type your city instead.");
                     }
                 );
