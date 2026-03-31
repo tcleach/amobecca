@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSVP to Becca & Caleb's Wedding</title>
 
+    <!-- Google Maps Places API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACg9lBAfDjpbqzFLj3pXPPRsp0Zviu3WI&libraries=places"></script>
+    
     <!-- SortableJS for Drag and Drop -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <link rel="stylesheet" href="styles.css">
@@ -66,11 +69,11 @@
                 <h3 class="question-title">Are you planning on showing up?</h3>
                 <div class="options-group">
                     <label class="custom-radio color-4"><input type="radio" name="showing_up" value="both" required><span
-                            class="custom-radio-ui"></span> I'll come to both the reception and the open house</label>
+                            class="custom-radio-ui"></span> I'll come to both the reception and the luncheon</label>
                     <label class="custom-radio color-4"><input type="radio" name="showing_up" value="reception"><span
                             class="custom-radio-ui"></span> I'll come to the reception</label>
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="open_house"><span
-                            class="custom-radio-ui"></span> I'll come to the open house</label>
+                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="luncheon"><span
+                            class="custom-radio-ui"></span> I'll come to the luncheon</label>
                     <label class="custom-radio color-4"><input type="radio" name="showing_up" value="neither"><span
                             class="custom-radio-ui"></span> I won't be able to come to either</label>
                 </div>
@@ -85,19 +88,16 @@
 
             <!-- Question 5b (Conditional) -->
             <div class="question-card conditional-field" id="q5b-container">
-                <h3 class="question-title">Number of people in your party for the open house</h3>
+                <h3 class="question-title">Number of people in your party for the luncheon</h3>
                 <input type="number" name="party_size_open_house" class="free-response-input color-2"
                     placeholder="Enter number...">
             </div>
 
             <!-- Question 6 (Conditional) -->
             <div class="question-card conditional-field" id="q6-container">
-                <h3 class="question-title">How far are you traveling for the reception?</h3>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <input type="number" name="travel_distance" class="free-response-input color-2"
-                        style="width: 150px;" placeholder="Miles...">
-                    <span>miles</span>
-                </div>
+                <h3 class="question-title">What city are you traveling from?</h3>
+                <input type="text" name="travel_city" class="free-response-input color-2"
+                    placeholder="Enter your city...">
             </div>
 
             <!-- Question 7 -->

@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const q5bContainer = document.getElementById('q5b-container');
     const q5bInput = q5bContainer.querySelector('input[type="number"]');
     const q6Container = document.getElementById('q6-container');
-    const q6Input = q6Container.querySelector('input[type="number"]');
+    const q6Input = q6Container.querySelector('input[type="text"]');
 
     q4Radios.forEach(radio => {
         radio.addEventListener('change', (e) => {
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 q5aInput.required = false;
             }
 
-            // Party size for open house
-            if (val === 'both' || val === 'open_house') {
+            // Party size for luncheon
+            if (val === 'both' || val === 'luncheon') {
                 q5bContainer.classList.add('visible');
                 q5bInput.required = true;
             } else {
@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 q5bInput.required = false;
             }
 
-            // Travel distance only if they are coming to the reception
-            if (val === 'both' || val === 'reception') {
+            // Travel city if they are coming to anything
+            if (val === 'both' || val === 'reception' || val === 'luncheon') {
                 q6Container.classList.add('visible');
                 q6Input.required = true;
             } else {
@@ -144,4 +144,20 @@ document.addEventListener('DOMContentLoaded', () => {
         q6Container.classList.remove('visible');
         initSortable('couple-ranking-list', 'couple-ranking-input');
     });
+
+    // --- GOOGLE PLACES AUTOCOMPLETE --- //
+    // Must initialize after map script loads if async defer is used, but since we rely on DOMContentLoaded, we check if google exists
+    setTimeout(() => {
+        if (window.google && window.google.maps && window.google.maps.places) {
+            const autocomplete = new google.maps.places.Autocomplete(q6Input, {
+                types: ['(cities)']
+            });
+            // Stop form from submitting if they hit 'Enter' to select a Google dropdown item
+            q6Input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+        }
+    }, 1000); // slight delay to ensure the async maps script loads
 });
