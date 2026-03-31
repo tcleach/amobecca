@@ -96,8 +96,11 @@
             <!-- Question 6 (Conditional) -->
             <div class="question-card conditional-field" id="q6-container">
                 <h3 class="question-title">What city are you traveling from?</h3>
-                <input type="text" name="travel_city" class="free-response-input color-2"
-                    placeholder="Enter your city...">
+                <div style="display: flex; gap: 10px; align-items: stretch;">
+                    <input type="text" name="travel_city" class="free-response-input color-2"
+                        placeholder="Enter your city..." id="city-input">
+                    <button type="button" id="current-location-btn" class="submit-btn color-1" style="padding: 0 1.25rem; font-size: 1.2rem; flex-shrink: 0;" title="Use Current Location">📍</button>
+                </div>
             </div>
 
             <!-- Question 7 -->

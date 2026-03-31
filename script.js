@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const q5bInput = q5bContainer.querySelector('input[type="number"]');
     const q6Container = document.getElementById('q6-container');
     const q6Input = q6Container.querySelector('input[type="text"]');
+    let isCitySelected = false;
 
     q4Radios.forEach(radio => {
         radio.addEventListener('change', (e) => {
@@ -101,6 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault(); 
         
+        // Strict Validation Check
+        if (q6Container.classList.contains('visible') && q6Input.value.trim() !== '' && !isCitySelected) {
+            alert('Please select a valid city from the dropdown location suggestions (or use the 📍 button) so we can calculate distance properly.');
+            return;
+        }
+        
         // Google Web App URL (Updated with new deployment)
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxB4Tm9Gb4B2IHmWxVcbfUh7DJdXFGFf_MQ55TlPu7g2E_zTjrLwFRP5-24cSj9u5t/exec'; 
         
@@ -152,11 +159,61 @@ document.addEventListener('DOMContentLoaded', () => {
             const autocomplete = new google.maps.places.Autocomplete(q6Input, {
                 types: ['(cities)']
             });
+            
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (place.geometry) {
+                    isCitySelected = true;
+                }
+            });
+            
+            q6Input.addEventListener('input', () => {
+                isCitySelected = false;
+            });
+            
             // Stop form from submitting if they hit 'Enter' to select a Google dropdown item
             q6Input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                 }
+            });
+
+            // Geolocation logic
+            const currentLocationBtn = document.getElementById('current-location-btn');
+            const geocoder = new google.maps.Geocoder();
+
+            currentLocationBtn.addEventListener('click', () => {
+                if (!navigator.geolocation) {
+                    alert("Geolocation is not supported by your browser");
+                    return;
+                }
+                
+                currentLocationBtn.textContent = '⏳';
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+                        geocoder.geocode({ location: pos }, (results, status) => {
+                            currentLocationBtn.textContent = '📍';
+                            if (status === "OK" && results[0]) {
+                                let city = "", state = "";
+                                for (let component of results[0].address_components) {
+                                    if (component.types.includes("locality")) city = component.long_name;
+                                    if (component.types.includes("administrative_area_level_1")) state = component.short_name;
+                                }
+                                if (city && state) {
+                                    q6Input.value = `${city}, ${state}`;
+                                    isCitySelected = true;
+                                } else {
+                                    alert("Could not pull a precise city from this location.");
+                                }
+                            }
+                        });
+                    },
+                    () => {
+                        currentLocationBtn.textContent = '📍';
+                        alert("Location access denied. Please type your city instead.");
+                    }
+                );
             });
         }
     }, 1000); // slight delay to ensure the async maps script loads
