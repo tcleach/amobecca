@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSVP to Becca & Caleb's Wedding</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <!-- SortableJS for Drag and Drop -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="survey-container">
         <header class="survey-header">
@@ -21,21 +20,26 @@
         </header>
 
         <form id="survey-form">
-            
+
             <!-- Question 0 (Name) -->
             <div class="question-card">
                 <h3 class="question-title">What is your name?</h3>
-                <input type="text" name="guest_name" class="free-response-input" placeholder="Enter your name..." required>
+                <input type="text" name="guest_name" class="free-response-input" placeholder="Enter your name..."
+                    required>
             </div>
 
             <!-- Question 1 -->
             <div class="question-card">
                 <h3 class="question-title">1. Are you here for the bride or the groom?</h3>
                 <div class="options-group">
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="bride" required><span class="custom-radio-ui"></span> The bride</label>
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="groom"><span class="custom-radio-ui"></span> The groom</label>
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="both"><span class="custom-radio-ui"></span> I know both of them, but I’m really here for Becca</label>
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="no_idea"><span class="custom-radio-ui"></span> I have no idea why I got this invitation in the mail</label>
+                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="bride"
+                            required><span class="custom-radio-ui"></span> The bride</label>
+                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="groom"><span
+                            class="custom-radio-ui"></span> The groom</label>
+                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="both"><span
+                            class="custom-radio-ui"></span> I know both of them, but I’m really here for Becca</label>
+                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="no_idea"><span
+                            class="custom-radio-ui"></span> I have no idea why I got this invitation in the mail</label>
                 </div>
             </div>
 
@@ -43,37 +47,55 @@
             <div class="question-card conditional-field" id="q2-container">
                 <h3 class="question-title">How do you know them?</h3>
                 <div class="options-group">
-                    <label class="custom-radio color-2"><input type="radio" name="how_know" value="family"><span class="custom-radio-ui"></span> Family</label>
-                    <label class="custom-radio color-2"><input type="radio" name="how_know" value="friends"><span class="custom-radio-ui"></span> Friends</label>
+                    <label class="custom-radio color-2"><input type="radio" name="how_know" value="family"><span
+                            class="custom-radio-ui"></span> Family</label>
+                    <label class="custom-radio color-2"><input type="radio" name="how_know" value="friends"><span
+                            class="custom-radio-ui"></span> Friends</label>
                 </div>
             </div>
 
             <!-- Question 3 -->
             <div class="question-card">
                 <h3 class="question-title">How old are you?</h3>
-                <input type="number" name="age" class="free-response-input color-3" placeholder="Enter number..." required>
+                <input type="number" name="age" class="free-response-input color-3" placeholder="Enter number..."
+                    required>
             </div>
 
             <!-- Question 4 -->
             <div class="question-card">
                 <h3 class="question-title">Are you planning on showing up?</h3>
                 <div class="options-group">
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="yes" required><span class="custom-radio-ui"></span> Yes</label>
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="no"><span class="custom-radio-ui"></span> No</label>
+                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="both" required><span
+                            class="custom-radio-ui"></span> I'll come to both the reception and the open house</label>
+                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="reception"><span
+                            class="custom-radio-ui"></span> I'll come to the reception</label>
+                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="open_house"><span
+                            class="custom-radio-ui"></span> I'll come to the open house</label>
+                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="neither"><span
+                            class="custom-radio-ui"></span> I won't be able to come to either</label>
                 </div>
             </div>
 
-            <!-- Question 5 (Conditional) -->
-            <div class="question-card conditional-field" id="q5-container">
-                <h3 class="question-title">Number of people in your party</h3>
-                <input type="number" name="party_size" class="free-response-input color-1" placeholder="Enter number...">
+            <!-- Question 5a (Conditional) -->
+            <div class="question-card conditional-field" id="q5a-container">
+                <h3 class="question-title">Number of people in your party for the reception</h3>
+                <input type="number" name="party_size_reception" class="free-response-input color-1"
+                    placeholder="Enter number...">
+            </div>
+
+            <!-- Question 5b (Conditional) -->
+            <div class="question-card conditional-field" id="q5b-container">
+                <h3 class="question-title">Number of people in your party for the open house</h3>
+                <input type="number" name="party_size_open_house" class="free-response-input color-2"
+                    placeholder="Enter number...">
             </div>
 
             <!-- Question 6 (Conditional) -->
             <div class="question-card conditional-field" id="q6-container">
-                <h3 class="question-title">How far are you traveling for this wedding?</h3>
+                <h3 class="question-title">How far are you traveling for the reception?</h3>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <input type="number" name="travel_distance" class="free-response-input color-2" style="width: 150px;" placeholder="Miles...">
+                    <input type="number" name="travel_distance" class="free-response-input color-2"
+                        style="width: 150px;" placeholder="Miles...">
                     <span>miles</span>
                 </div>
             </div>
@@ -82,21 +104,30 @@
             <div class="question-card">
                 <h3 class="question-title">Which is your favorite wedding color?</h3>
                 <div class="color-options-container">
-                    <label style="color: #618295;">
-                        <input type="radio" name="favorite_color" value="#618295" class="visually-hidden" required>
-                        <div class="color-option" style="background-color: #618295;"></div>
+                    <label style="color: #F7C7A9;">
+                        <input type="radio" name="favorite_color" value="#F7C7A9" class="visually-hidden" required>
+                        <div class="color-option" style="background-color: #F7C7A9;"></div>
                     </label>
                     <label style="color: #C2D5E0;">
                         <input type="radio" name="favorite_color" value="#C2D5E0" class="visually-hidden">
                         <div class="color-option" style="background-color: #C2D5E0;"></div>
                     </label>
-                    <label style="color: #F7C7A9;">
-                        <input type="radio" name="favorite_color" value="#F7C7A9" class="visually-hidden">
-                        <div class="color-option" style="background-color: #F7C7A9;"></div>
+                    <label style="color: #618295;">
+                        <input type="radio" name="favorite_color" value="#618295" class="visually-hidden">
+                        <div class="color-option" style="background-color: #618295;"></div>
                     </label>
-                    <label style="color: #EFC8BD;">
-                        <input type="radio" name="favorite_color" value="#EFC8BD" class="visually-hidden">
-                        <div class="color-option" style="background-color: #EFC8BD;"></div>
+
+                    <label style="color: #FFFBD0;">
+                        <input type="radio" name="favorite_color" value="#FFFBD0" class="visually-hidden">
+                        <div class="color-option" style="background-color: #FFFBD0;"></div>
+                    </label>
+                    <label style="color: #B3D7C4;">
+                        <input type="radio" name="favorite_color" value="#B3D7C4" class="visually-hidden">
+                        <div class="color-option" style="background-color: #B3D7C4;"></div>
+                    </label>
+                    <label style="color: #DDCCF5;">
+                        <input type="radio" name="favorite_color" value="#DDCCF5" class="visually-hidden">
+                        <div class="color-option" style="background-color: #DDCCF5;"></div>
                     </label>
                 </div>
             </div>
@@ -105,39 +136,31 @@
             <div class="question-card">
                 <h3 class="question-title">Which of these is tastier?</h3>
                 <div class="options-group">
-                    <label class="custom-radio color-1"><input type="radio" name="tastier" value="pasta" required><span class="custom-radio-ui"></span> Pasta</label>
-                    <label class="custom-radio color-1"><input type="radio" name="tastier" value="pizza"><span class="custom-radio-ui"></span> Pizza</label>
+                    <label class="custom-radio color-1"><input type="radio" name="tastier" value="pasta" required><span
+                            class="custom-radio-ui"></span> Pasta</label>
+                    <label class="custom-radio color-1"><input type="radio" name="tastier" value="pizza"><span
+                            class="custom-radio-ui"></span> Pizza</label>
                 </div>
             </div>
 
             <!-- Question 9 (Ranking) -->
             <div class="question-card">
-                <h3 class="question-title">Which of these are the most important for a wedding reception?</h3>
-                <p class="subtitle">Drag to reorder (1 is most important)</p>
-                <ul id="reception-ranking-list" class="ranking-list color-2">
-                    <li class="ranking-item" data-id="Respect for sealing"><span class="drag-handle">≡</span><span class="ranking-text">Maintaining a spirit of respect for the sealing</span></li>
-                    <li class="ranking-item" data-id="Talking to couple"><span class="drag-handle">≡</span><span class="ranking-text">Talking to the couple</span></li>
-                    <li class="ranking-item" data-id="Having good time"><span class="drag-handle">≡</span><span class="ranking-text">Having a good time</span></li>
-                    <li class="ranking-item" data-id="Food"><span class="drag-handle">≡</span><span class="ranking-text">Food</span></li>
-                    <li class="ranking-item" data-id="Being short"><span class="drag-handle">≡</span><span class="ranking-text">Being short</span></li>
-                    <li class="ranking-item" data-id="Good pictures"><span class="drag-handle">≡</span><span class="ranking-text">Producing good pictures</span></li>
-                    <li class="ranking-item" data-id="Dancing"><span class="drag-handle">≡</span><span class="ranking-text">Dancing my heart out!</span></li>
-                    <li class="ranking-item" data-id="Partying"><span class="drag-handle">≡</span><span class="ranking-text">Partying it up!</span></li>
-                </ul>
-                <input type="hidden" name="reception_ranking" id="reception-ranking-input">
-            </div>
-
-            <!-- Question 10 (Ranking) -->
-            <div class="question-card">
-                <h3 class="question-title">Which of these are the most important to focus on as a newly married couple?</h3>
+                <h3 class="question-title">Which of these are the most important to focus on as a newly married couple?
+                </h3>
                 <p class="subtitle">Drag to reorder (1 is most important)</p>
                 <ul id="couple-ranking-list" class="ranking-list color-3">
-                    <li class="ranking-item" data-id="Budget wisely"><span class="drag-handle">≡</span><span class="ranking-text">Budget wisely</span></li>
-                    <li class="ranking-item" data-id="Talk to each other"><span class="drag-handle">≡</span><span class="ranking-text">Talk to each other</span></li>
-                    <li class="ranking-item" data-id="Have fun"><span class="drag-handle">≡</span><span class="ranking-text">Have fun</span></li>
-                    <li class="ranking-item" data-id="Worship practices"><span class="drag-handle">≡</span><span class="ranking-text">Regular worship practices</span></li>
-                    <li class="ranking-item" data-id="Mother in law"><span class="drag-handle">≡</span><span class="ranking-text">Don’t make your mother-in-law mad</span></li>
-                    <li class="ranking-item" data-id="Independent"><span class="drag-handle">≡</span><span class="ranking-text">Become independent from your parents</span></li>
+                    <li class="ranking-item" data-id="Budget wisely"><span class="drag-handle">≡</span><span
+                            class="ranking-text">Budget wisely</span></li>
+                    <li class="ranking-item" data-id="Talk to each other"><span class="drag-handle">≡</span><span
+                            class="ranking-text">Talk to each other</span></li>
+                    <li class="ranking-item" data-id="Have fun"><span class="drag-handle">≡</span><span
+                            class="ranking-text">Have fun</span></li>
+                    <li class="ranking-item" data-id="Worship practices"><span class="drag-handle">≡</span><span
+                            class="ranking-text">Regular worship practices</span></li>
+                    <li class="ranking-item" data-id="Mother in law"><span class="drag-handle">≡</span><span
+                            class="ranking-text">Don’t make your mother-in-law mad</span></li>
+                    <li class="ranking-item" data-id="Independent"><span class="drag-handle">≡</span><span
+                            class="ranking-text">Become independent from your parents</span></li>
                 </ul>
                 <input type="hidden" name="couple_ranking" id="couple-ranking-input">
             </div>
@@ -160,4 +183,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,31 +1,32 @@
 /* Design System & Variables */
 :root {
     /* Primary brand color for text and lines */
-    --brand-dark: #618295;
+    --brand-dark: #393939;
 
     /* Main Background Colors */
-    --bg-main: #FFFFFF;
-    --text-primary: var(--brand-dark);
-    --text-secondary: rgba(97, 130, 149, 0.8);
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --card-border: var(--brand-dark);
+    --bg-main: #FFFEF6;
+    --text-primary: #393939;
+    --text-secondary: #393939;
+    --card-bg: #FFFEF6;
+    --card-border: #618295;
     
     /* 3 Highlight Colors */
     --color-1-base: #C2D5E0;
-    --color-1-hover: #E8EFF4; /* Light blue very light shade for hover */
+    --color-1-hover: #C2D5E0;
     
     --color-2-base: #F7C7A9;
-    --color-2-hover: #E1B192;
+    --color-2-hover: #F7C7A9;
     
-    --color-3-base: #EFC8BD;
-    --color-3-hover: #F9EBE7; /* Pink very light shade for hover */
+    --color-3-base: #B3D7C4;
+    --color-3-hover: #B3D7C4;
     
     /* We reuse color 1 for cycle 4 */
-    --color-4-base: #C2D5E0;
-    --color-4-hover: #ABC3D0;
+    --color-4-base: #DDCCF5;
+    --color-4-hover: #DDCCF5;
     
     /* Utility colors */
-    --shadow-color: rgba(97, 130, 149, 0.15);
+    --shadow-soft: 0 4px 15px rgba(57, 57, 57, 0.1);
+    --shadow-hover: 0 8px 25px rgba(57, 57, 57, 0.2);
 }
 
 * {
@@ -51,19 +52,7 @@ body {
     pointer-events: none;
 }
 
-/* Background decorative blob (optional gradient touch for premium feel) */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Extremely subtle ambient mix behind everything */
-    background: radial-gradient(circle at 15% 50%, rgba(224, 240, 255, 0.4), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(255, 229, 217, 0.4), transparent 25%);
-    z-index: -1;
-}
+
 
 .survey-container {
     width: 100%;
@@ -91,20 +80,20 @@ body::before {
 /* Question Cards */
 .question-card {
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--card-border);
-    border-radius: 16px;
+    outline: 1px solid var(--card-border);
+    outline-offset: -8px;
+    border-radius: 0;
     padding: 2rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 8px 32px var(--shadow-color);
+    box-shadow: var(--shadow-soft);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeInUp 0.5s ease-out backwards;
 }
 
 .question-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-hover);
 }
 
 .question-card:nth-child(1) { animation-delay: 0.1s; }
@@ -137,7 +126,7 @@ body::before {
     padding: 1rem 1.25rem;
     background-color: var(--bg-main);
     border: 1px solid var(--card-border);
-    border-radius: 12px;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 400;
@@ -154,7 +143,7 @@ body::before {
     height: 20px;
     flex-shrink: 0;
     border: 2px solid var(--text-secondary);
-    border-radius: 50%;
+    border-radius: 0;
     margin-right: 1rem;
     position: relative;
     transition: all 0.2s ease;
@@ -173,7 +162,7 @@ body::before {
     width: 10px;
     height: 10px;
     background-color: var(--text-primary);
-    border-radius: 50%;
+    border-radius: 0;
 }
 
 /* Multiple Choice Hover & Active States */
@@ -196,7 +185,7 @@ body::before {
     font-size: 1rem;
     background-color: var(--bg-main);
     border: 1px solid var(--card-border);
-    border-radius: 12px;
+    border-radius: 0;
     color: var(--text-primary);
     resize: vertical;
     transition: all 0.2s ease;
@@ -207,7 +196,6 @@ body::before {
     background-color: var(--color-3-hover);
 }
 .free-response-input:focus {
-    box-shadow: 0 0 0 3px rgba(239, 200, 189, 0.4);
     border-color: var(--color-3-base);
     background-color: transparent;
 }
@@ -227,7 +215,7 @@ body::before {
     padding: 1rem 1.25rem;
     background-color: var(--bg-main);
     border: 1px solid var(--card-border);
-    border-radius: 12px;
+    border-radius: 0;
     cursor: grab;
     transition: background-color 0.2s ease, transform 0.1s;
 }
@@ -281,16 +269,16 @@ body::before {
     color: var(--text-primary);
     background-color: var(--color-4-base);
     border: none;
-    border-radius: 12px;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-soft);
 }
 
 .submit-btn:hover {
     background-color: var(--color-4-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-hover);
 }
 .submit-btn:active {
     transform: translateY(0);
@@ -304,8 +292,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
+    background: var(--bg-main);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -322,9 +309,9 @@ body::before {
 .modal-content {
     background: var(--bg-main);
     padding: 3rem;
-    border-radius: 20px;
+    border-radius: 0;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-hover);
     transform: translateY(0);
     transition: transform 0.3s ease;
 }
@@ -390,15 +377,15 @@ body::before {
 .color-option {
     width: 65px;
     height: 65px;
-    border-radius: 16px;
+    border-radius: 0;
     cursor: pointer;
     border: 3px solid transparent;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-soft);
 }
 .color-option:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-hover);
 }
 input[type="radio"]:checked + .color-option {
     border-color: currentColor;

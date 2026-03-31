@@ -18,21 +18,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const q4Radios = document.querySelectorAll('input[name="showing_up"]');
-    const q5Container = document.getElementById('q5-container');
-    const q5Input = q5Container.querySelector('input[type="number"]');
+    const q5aContainer = document.getElementById('q5a-container');
+    const q5aInput = q5aContainer.querySelector('input[type="number"]');
+    const q5bContainer = document.getElementById('q5b-container');
+    const q5bInput = q5bContainer.querySelector('input[type="number"]');
     const q6Container = document.getElementById('q6-container');
     const q6Input = q6Container.querySelector('input[type="number"]');
 
     q4Radios.forEach(radio => {
         radio.addEventListener('change', (e) => {
-            if (e.target.value === 'yes') {
-                q5Container.classList.add('visible');
-                q5Input.required = true;
+            const val = e.target.value;
+            // Party size for reception
+            if (val === 'both' || val === 'reception') {
+                q5aContainer.classList.add('visible');
+                q5aInput.required = true;
+            } else {
+                q5aContainer.classList.remove('visible');
+                q5aInput.required = false;
+            }
+
+            // Party size for open house
+            if (val === 'both' || val === 'open_house') {
+                q5bContainer.classList.add('visible');
+                q5bInput.required = true;
+            } else {
+                q5bContainer.classList.remove('visible');
+                q5bInput.required = false;
+            }
+
+            // Travel distance only if they are coming to the reception
+            if (val === 'both' || val === 'reception') {
                 q6Container.classList.add('visible');
                 q6Input.required = true;
             } else {
-                q5Container.classList.remove('visible');
-                q5Input.required = false;
                 q6Container.classList.remove('visible');
                 q6Input.required = false;
             }
@@ -72,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    initSortable('reception-ranking-list', 'reception-ranking-input');
     initSortable('couple-ranking-list', 'couple-ranking-input');
 
     
@@ -122,9 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Re-randomize and close conditionals smoothly
         q2Container.classList.remove('visible');
-        q5Container.classList.remove('visible');
+        q5aContainer.classList.remove('visible');
+        q5bContainer.classList.remove('visible');
         q6Container.classList.remove('visible');
-        initSortable('reception-ranking-list', 'reception-ranking-input');
         initSortable('couple-ranking-list', 'couple-ranking-input');
     });
 });
