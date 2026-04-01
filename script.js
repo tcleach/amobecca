@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Google Web App URL (Updated with new deployment)
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxB4Tm9Gb4B2IHmWxVcbfUh7DJdXFGFf_MQ55TlPu7g2E_zTjrLwFRP5-24cSj9u5t/exec'; 
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0Ow6nJ8Ye5APXgKCq3DZDTsnbqng26FJ8XpEDvo4JcHRsFw356ghR38TqxT3Lz7r3/exec'; 
         
         const submitBtn = form.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
