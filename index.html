@@ -69,11 +69,11 @@
                 <h3 class="question-title">Are you planning on showing up?</h3>
                 <div class="options-group">
                     <label class="custom-radio color-4"><input type="radio" name="showing_up" value="both" required><span
-                            class="custom-radio-ui"></span> I'll come to both the reception and the luncheon</label>
+                            class="custom-radio-ui"></span> I'll come to both the reception and the open house</label>
                     <label class="custom-radio color-4"><input type="radio" name="showing_up" value="reception"><span
                             class="custom-radio-ui"></span> I'll come to the reception</label>
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="luncheon"><span
-                            class="custom-radio-ui"></span> I'll come to the luncheon</label>
+                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="open_house"><span
+                            class="custom-radio-ui"></span> I'll come to the open house</label>
                     <label class="custom-radio color-4"><input type="radio" name="showing_up" value="neither"><span
                             class="custom-radio-ui"></span> I won't be able to come to either</label>
                 </div>
@@ -88,7 +88,7 @@
 
             <!-- Question 5b (Conditional) -->
             <div class="question-card conditional-field" id="q5b-container">
-                <h3 class="question-title">Number of people in your party for the luncheon</h3>
+                <h3 class="question-title">Number of people in your party for the open house</h3>
                 <input type="number" name="party_size_open_house" class="free-response-input color-2"
                     placeholder="Enter number...">
             </div>
@@ -96,15 +96,16 @@
             <!-- Question 6 (Conditional) -->
             <div class="question-card conditional-field" id="q6-container">
                 <h3 class="question-title">What city are you traveling from?</h3>
-                <div style="display: flex; gap: 10px; align-items: stretch;">
-                    <input type="text" name="travel_city" class="free-response-input color-2"
-                        placeholder="Enter your city..." id="city-input">
-                    <button type="button" id="current-location-btn" class="submit-btn color-1" style="padding: 0 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" title="Use Current Location">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button type="button" id="current-location-btn" class="submit-btn color-1" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
+                        <span>Use my current location</span>
                     </button>
+                    <input type="text" name="travel_city" class="free-response-input color-2"
+                        placeholder="Enter your city..." id="city-input">
                 </div>
             </div>
 
@@ -151,7 +152,41 @@
                 </div>
             </div>
 
-            <!-- Question 9 (Ranking) -->
+            <!-- Question 9 (Romantic Ranking) -->
+            <div class="question-card">
+                <h3 class="question-title">Which of these are the most romantic to send to someone?</h3>
+                <p class="subtitle">Drag to reorder (1 is most romantic)</p>
+                <ul id="romantic-ranking-list" class="ranking-list">
+                    <li class="ranking-item" data-id="flowers"><span class="drag-handle">≡</span><span
+                            class="ranking-text">flowers</span></li>
+                    <li class="ranking-item" data-id="chocolate"><span class="drag-handle">≡</span><span
+                            class="ranking-text">chocolate</span></li>
+                    <li class="ranking-item" data-id="a note"><span class="drag-handle">≡</span><span
+                            class="ranking-text">a note</span></li>
+                    <li class="ranking-item" data-id="a graph"><span class="drag-handle">≡</span><span
+                            class="ranking-text">a graph</span></li>
+                </ul>
+                <input type="hidden" name="romantic_ranking" id="romantic-ranking-input">
+            </div>
+
+            <!-- Question 10 (Duck Pond) -->
+            <div class="question-card">
+                <h3 class="question-title">Is proposing at the BYU duck pond a good idea?</h3>
+                <div class="options-group">
+                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Really good idea" required><span
+                            class="custom-radio-ui"></span> Really good idea</label>
+                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Good idea"><span
+                            class="custom-radio-ui"></span> Good idea</label>
+                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="I'm not sure"><span
+                            class="custom-radio-ui"></span> I'm not sure</label>
+                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Bad idea"><span
+                            class="custom-radio-ui"></span> Bad idea</label>
+                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Really bad idea"><span
+                            class="custom-radio-ui"></span> Really bad idea</label>
+                </div>
+            </div>
+
+            <!-- Question 11 (Ranking) -->
             <div class="question-card">
                 <h3 class="question-title">Which of these are the most important to focus on as a newly married couple?
                 </h3>
@@ -185,7 +220,7 @@
         <div class="modal-content">
             <h2 class="color-4-text">Thank You!</h2>
             <p>Your RSVP response has been recorded successfully.</p>
-            <button id="close-modal" class="submit-btn color-1">Close</button>
+            <button id="close-modal" class="submit-btn color-1">Go to Registry</button>
         </div>
     </div>
 

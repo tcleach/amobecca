@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const q6Container = document.getElementById('q6-container');
     const q6Input = q6Container.querySelector('input[type="text"]');
     let isCitySelected = false;
+    let hasGoogleMapsFailed = false;
+
+    // Google Maps executes this global callback if authentication fails
+    window.gm_authFailure = function() {
+        hasGoogleMapsFailed = true;
+        q6Input.required = false;
+    };
 
     q4Radios.forEach(radio => {
         radio.addEventListener('change', (e) => {
@@ -38,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 q5aInput.required = false;
             }
 
-            // Party size for luncheon
-            if (val === 'both' || val === 'luncheon') {
+            // Party size for open house
+            if (val === 'both' || val === 'open_house') {
                 q5bContainer.classList.add('visible');
                 q5bInput.required = true;
             } else {
@@ -48,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Travel city if they are coming to anything
-            if (val === 'both' || val === 'reception' || val === 'luncheon') {
+            if (val === 'both' || val === 'reception' || val === 'open_house') {
                 q6Container.classList.add('visible');
-                q6Input.required = true;
+                q6Input.required = !hasGoogleMapsFailed;
             } else {
                 q6Container.classList.remove('visible');
                 q6Input.required = false;
@@ -92,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     initSortable('couple-ranking-list', 'couple-ranking-input');
+    initSortable('romantic-ranking-list', 'romantic-ranking-input');
 
     
     // --- FORM SUBMISSION --- //
@@ -102,8 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault(); 
         
-        // Strict Validation Check
-        if (q6Container.classList.contains('visible') && q6Input.value.trim() !== '' && !isCitySelected) {
+        // Strict Validation Check (Bypass if Google Maps API crashed)
+        if (!hasGoogleMapsFailed && q6Container.classList.contains('visible') && q6Input.value.trim() !== '' && !isCitySelected) {
             alert('Please select a valid city from the dropdown location suggestions (or use the 📍 button) so we can calculate distance properly.');
             return;
         }
@@ -137,10 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeModalBtn.addEventListener('click', () => {
-        // Attempt to close the tab
-        window.close();
+        // Redirect to registry
+        window.location.href = 'https://www.amazon.com/wedding/share/caleblovesbecca';
         
-        // Fallback in case the browser blocks window.close()
+        // Hide modal in background in case they hit the back button later
         modal.classList.add('hidden');
         form.reset();
         
@@ -150,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         q5bContainer.classList.remove('visible');
         q6Container.classList.remove('visible');
         initSortable('couple-ranking-list', 'couple-ranking-input');
+        initSortable('romantic-ranking-list', 'romantic-ranking-input');
     });
 
     // --- GOOGLE PLACES AUTOCOMPLETE --- //
@@ -181,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Geolocation logic
             const currentLocationBtn = document.getElementById('current-location-btn');
             const geocoder = new google.maps.Geocoder();
-            const pinSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`;
+            const defaultBtnHtml = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span>Use my current location</span>`;
 
             currentLocationBtn.addEventListener('click', () => {
                 if (!navigator.geolocation) {
@@ -189,12 +198,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                currentLocationBtn.textContent = '...';
+                currentLocationBtn.textContent = 'Locating...';
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
                         geocoder.geocode({ location: pos }, (results, status) => {
-                            currentLocationBtn.innerHTML = pinSvg;
+                            currentLocationBtn.innerHTML = defaultBtnHtml;
                             if (status === "OK" && results[0]) {
                                 let city = "", state = "";
                                 for (let component of results[0].address_components) {
@@ -211,11 +220,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     },
                     () => {
-                        currentLocationBtn.innerHTML = pinSvg;
+                        currentLocationBtn.innerHTML = defaultBtnHtml;
                         alert("Location access denied. Please type your city instead.");
                     }
                 );
             });
+        } else {
+            // Google Maps script failed to load (network block, etc)
+            hasGoogleMapsFailed = true;
+            q6Input.required = false;
         }
-    }, 1000); // slight delay to ensure the async maps script loads
+    }, 1500); // 1.5s delay to ensure the async maps script loads
 });
