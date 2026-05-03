@@ -10,19 +10,18 @@
     --card-bg: #FFFEF6;
     --card-border: #618295;
     
-    /* 3 Highlight Colors */
-    --color-1-base: #C2D5E0;
-    --color-1-hover: #C2D5E0;
+    /* Highlight Colors — final palette */
+    --color-1-base: #C2D5E1;
+    --color-1-hover: #C2D5E1;
     
-    --color-2-base: #F7C7A9;
-    --color-2-hover: #F7C7A9;
+    --color-2-base: #F6C7A9;
+    --color-2-hover: #F6C7A9;
     
-    --color-3-base: #B3D7C4;
-    --color-3-hover: #B3D7C4;
+    --color-3-base: #EEC8BD;
+    --color-3-hover: #EEC8BD;
     
-    /* We reuse color 1 for cycle 4 */
-    --color-4-base: #DDCCF5;
-    --color-4-hover: #DDCCF5;
+    --color-4-base: #618295;
+    --color-4-hover: #618295;
     
     /* Utility colors */
     --shadow-soft: 0 4px 15px rgba(57, 57, 57, 0.1);
@@ -36,7 +35,7 @@
 }
 
 body {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
     background-color: var(--bg-main);
     color: var(--text-primary);
     line-height: 1.6;
@@ -276,7 +275,7 @@ body {
     font-family: inherit;
     font-size: 1.1rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--bg-main);
     background-color: var(--color-4-base);
     border: none;
     border-radius: 0;
