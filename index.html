@@ -4,13 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSVP to Becca & Caleb's Wedding</title>
-
-    <!-- Google Maps Places API -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACg9lBAfDjpbqzFLj3pXPPRsp0Zviu3WI&libraries=places"></script>
+    <title>RSVP to Becca & Caleb's Open House</title>
     
-    <!-- SortableJS for Drag and Drop -->
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -20,202 +15,28 @@
 <body>
     <div class="survey-container">
         <header class="survey-header">
-            <h1>RSVP to Becca and Caleb’s Wedding</h1>
-            <p><strong>June 30th</strong></p>
-            <p>And answer some questions along the way!</p>
+            <h1>RSVP to Becca and Caleb's Open House</h1>
+            <p><strong>July 18th</strong></p>
         </header>
 
         <form id="survey-form">
-
-            <!-- Question 0 (Name) -->
             <div class="question-card">
-                <h3 class="question-title">What is your name?</h3>
-                <input type="text" name="guest_name" class="free-response-input" placeholder="Enter your name..."
-                    required>
+                <h3 class="question-title">We are excited to celebrate with you!</h3>
+                <p class="subtitle">Please enter your name below to RSVP.</p>
+                
+                <input type="text" name="guest_name" class="free-response-input" placeholder="Jane Doe" required>
+                
+                <!-- Hidden variables for compatibility with current spreadsheet structure -->
+                <input type="hidden" name="showing_up" value="yes">
+                <input type="hidden" name="rsvp" value="yes">
             </div>
 
-            <!-- Question 1 -->
-            <div class="question-card">
-                <h3 class="question-title">1. Are you here for the bride or the groom?</h3>
-                <div class="options-group">
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="bride"
-                            required><span class="custom-radio-ui"></span> The bride</label>
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="groom"><span
-                            class="custom-radio-ui"></span> The groom</label>
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="both"><span
-                            class="custom-radio-ui"></span> I know both of them, but I’m really here for Becca</label>
-                    <label class="custom-radio color-1"><input type="radio" name="attending_for" value="no_idea"><span
-                            class="custom-radio-ui"></span> I have no idea why I got this invitation in the mail</label>
-                </div>
-            </div>
-
-            <!-- Question 2 (Conditional) -->
-            <div class="question-card conditional-field" id="q2-container">
-                <h3 class="question-title">How do you know them?</h3>
-                <div class="options-group">
-                    <label class="custom-radio color-2"><input type="radio" name="how_know" value="family"><span
-                            class="custom-radio-ui"></span> Family</label>
-                    <label class="custom-radio color-2"><input type="radio" name="how_know" value="friends"><span
-                            class="custom-radio-ui"></span> Friends</label>
-                </div>
-            </div>
-
-            <!-- Question 3 -->
-            <div class="question-card">
-                <h3 class="question-title">How old are you?</h3>
-                <input type="number" name="age" class="free-response-input color-3" placeholder="Enter number..."
-                    required>
-            </div>
-
-            <!-- Question 4 -->
-            <div class="question-card">
-                <h3 class="question-title">Are you planning on showing up?</h3>
-                <div class="options-group">
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="both" required><span
-                            class="custom-radio-ui"></span> I'll come to both the reception and the open house</label>
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="reception"><span
-                            class="custom-radio-ui"></span> I'll come to the reception</label>
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="open_house"><span
-                            class="custom-radio-ui"></span> I'll come to the open house</label>
-                    <label class="custom-radio color-4"><input type="radio" name="showing_up" value="neither"><span
-                            class="custom-radio-ui"></span> I won't be able to come to either</label>
-                </div>
-            </div>
-
-            <!-- Question 5a (Conditional) -->
-            <div class="question-card conditional-field" id="q5a-container">
-                <h3 class="question-title">Number of people in your party for the reception</h3>
-                <input type="number" name="party_size_reception" class="free-response-input color-1"
-                    placeholder="Enter number...">
-            </div>
-
-            <!-- Question 5b (Conditional) -->
-            <div class="question-card conditional-field" id="q5b-container">
-                <h3 class="question-title">Number of people in your party for the open house</h3>
-                <input type="number" name="party_size_open_house" class="free-response-input color-2"
-                    placeholder="Enter number...">
-            </div>
-
-            <!-- Question 6 (Conditional) -->
-            <div class="question-card conditional-field" id="q6-container">
-                <h3 class="question-title">What city are you traveling from?</h3>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <button type="button" id="current-location-btn" class="submit-btn color-1" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        <span>Use my current location</span>
-                    </button>
-                    <input type="text" name="travel_city" class="free-response-input color-2"
-                        placeholder="Enter your city..." id="city-input">
-                </div>
-            </div>
-
-            <!-- Question 7 -->
-            <div class="question-card">
-                <h3 class="question-title">Which is your favorite wedding color?</h3>
-                <div class="color-options-container">
-                    <label style="color: #C2D5E1;">
-                        <input type="radio" name="favorite_color" value="#C2D5E1" class="visually-hidden" required>
-                        <div class="color-option" style="background-color: #C2D5E1;"></div>
-                    </label>
-                    <label style="color: #F6C7A9;">
-                        <input type="radio" name="favorite_color" value="#F6C7A9" class="visually-hidden">
-                        <div class="color-option" style="background-color: #F6C7A9;"></div>
-                    </label>
-                    <label style="color: #EEC8BD;">
-                        <input type="radio" name="favorite_color" value="#EEC8BD" class="visually-hidden">
-                        <div class="color-option" style="background-color: #EEC8BD;"></div>
-                    </label>
-                    <label style="color: #618295;">
-                        <input type="radio" name="favorite_color" value="#618295" class="visually-hidden">
-                        <div class="color-option" style="background-color: #618295;"></div>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Question 8 -->
-            <div class="question-card">
-                <h3 class="question-title">Which of these is tastier?</h3>
-                <div class="options-group">
-                    <label class="custom-radio color-1"><input type="radio" name="tastier" value="pasta" required><span
-                            class="custom-radio-ui"></span> Pasta</label>
-                    <label class="custom-radio color-1"><input type="radio" name="tastier" value="pizza"><span
-                            class="custom-radio-ui"></span> Pizza</label>
-                </div>
-            </div>
-
-            <!-- Question 9 (Romantic Ranking) -->
-            <div class="question-card">
-                <h3 class="question-title">Which of these are the most romantic to send to someone?</h3>
-                <p class="subtitle">Drag to reorder (1 is most romantic)</p>
-                <ul id="romantic-ranking-list" class="ranking-list">
-                    <li class="ranking-item" data-id="flowers"><span class="drag-handle">≡</span><span
-                            class="ranking-text">flowers</span></li>
-                    <li class="ranking-item" data-id="chocolate"><span class="drag-handle">≡</span><span
-                            class="ranking-text">chocolate</span></li>
-                    <li class="ranking-item" data-id="a note"><span class="drag-handle">≡</span><span
-                            class="ranking-text">a note</span></li>
-                    <li class="ranking-item" data-id="a graph"><span class="drag-handle">≡</span><span
-                            class="ranking-text">a graph</span></li>
-                </ul>
-                <input type="hidden" name="romantic_ranking" id="romantic-ranking-input">
-            </div>
-
-            <!-- Question 10 (Duck Pond) -->
-            <div class="question-card">
-                <h3 class="question-title">Is proposing at the BYU duck pond a good idea?</h3>
-                <div class="options-group">
-                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Really good idea" required><span
-                            class="custom-radio-ui"></span> Really good idea</label>
-                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Good idea"><span
-                            class="custom-radio-ui"></span> Good idea</label>
-                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="I'm not sure"><span
-                            class="custom-radio-ui"></span> I'm not sure</label>
-                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Bad idea"><span
-                            class="custom-radio-ui"></span> Bad idea</label>
-                    <label class="custom-radio color-2"><input type="radio" name="duck_pond_proposal" value="Really bad idea"><span
-                            class="custom-radio-ui"></span> Really bad idea</label>
-                </div>
-            </div>
-
-            <!-- Question 11 (Ranking) -->
-            <div class="question-card">
-                <h3 class="question-title">Which of these are the most important to focus on as a newly married couple?
-                </h3>
-                <p class="subtitle">Drag to reorder (1 is most important)</p>
-                <ul id="couple-ranking-list" class="ranking-list color-3">
-                    <li class="ranking-item" data-id="Budget wisely"><span class="drag-handle">≡</span><span
-                            class="ranking-text">Budget wisely</span></li>
-                    <li class="ranking-item" data-id="Talk to each other"><span class="drag-handle">≡</span><span
-                            class="ranking-text">Talk to each other</span></li>
-                    <li class="ranking-item" data-id="Have fun"><span class="drag-handle">≡</span><span
-                            class="ranking-text">Have fun</span></li>
-                    <li class="ranking-item" data-id="Worship practices"><span class="drag-handle">≡</span><span
-                            class="ranking-text">Regular worship practices</span></li>
-                    <li class="ranking-item" data-id="Mother in law"><span class="drag-handle">≡</span><span
-                            class="ranking-text">Don’t make your mother-in-law mad</span></li>
-                    <li class="ranking-item" data-id="Independent"><span class="drag-handle">≡</span><span
-                            class="ranking-text">Become independent from your parents</span></li>
-                </ul>
-                <input type="hidden" name="couple_ranking" id="couple-ranking-input">
-            </div>
-
-            <!-- Submit Button -->
+            <!-- Action Buttons/Links -->
             <div class="submit-container">
-                <button type="submit" class="submit-btn color-4">Submit RSVP</button>
+                <a href="https://www.amazon.com/wedding/share/caleblovesbecca" target="_blank" class="registry-link">View Registry</a>
+                <button type="submit" class="submit-btn color-4">RSVP</button>
             </div>
         </form>
-    </div>
-
-    <!-- Success Modal -->
-    <div id="success-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2 class="color-4-text">Thank You!</h2>
-            <p>Your RSVP response has been recorded successfully.</p>
-            <button id="close-modal" class="submit-btn color-1">Go to Registry</button>
-        </div>
     </div>
 
     <script src="script.js"></script>
